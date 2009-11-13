@@ -4,9 +4,13 @@ import scweery.Scweery._
 import db.DB
 
 object Portfolio {
-  def create(user: User, name: String) = use(DB.connection) {
-    _.update("insert into portfolio (username, name) values (%s, '%s')".format(user.name, name))
+  def create(user: User, name: String) = {
+    use(DB.connection) {
+      _.update("insert into portfolios (username, name) values ('%s', '%s')".format(user.name, name))
+    }
+    Portfolio(name) // todo - scweery should allow create and return structure ... api design needed
   }
+
 }
 
 // for functions that return List[Portfolio]
