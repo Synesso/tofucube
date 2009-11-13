@@ -14,5 +14,6 @@ class StepProject(info: ProjectInfo) extends DefaultWebProject(info) {
   val scalatest = "org.scala-tools.testing" % "scalatest" % "0.9.5" % "test->default"
 
   // provided
-  val servlet = "javax.servlet" % "servlet-api" % "2.5" % "provided->default"
+  val servlet = "org.mortbay.jetty" % "servlet-api" % "3.0.pre1" % "provided->default"
+  val postgres = "postgresql" % "postgresql" % "8.4-701.jdbc4" % "provided->default"
 }

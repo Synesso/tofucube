@@ -10,7 +10,7 @@ class PortfolioList(val session: HttpSession) extends Page with NeedsUser {
       <div class="heading">Portfolios for {u}</div>
       <div class="icon_list">
         <ul>
-          {Portfolios.belongingToUser.map(p => <li>{p.html}</li>)}
+          {Portfolios.belongingTo(u).map(p => <li>{p.html}</li>)}
           <li><a href="/create/portfolio">Create new portfolio</a></li>
         </ul>
       </div>
