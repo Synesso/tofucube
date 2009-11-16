@@ -7,6 +7,6 @@ create table users (
 
 create table portfolios (
   username text references users,
-  name text NOT NULL
+  name text NOT NULL UNIQUE PRIMARY KEY
 );
 

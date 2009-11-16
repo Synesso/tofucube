@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="provided">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib_managed/provided/servlet-api-3.0.pre1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_managed/provided/postgresql-8.4-701.jdbc4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/project/boot/scala-2.7.5/lib/scala-compiler.jar!/" />
+      <root url="jar://$PROJECT_DIR$/project/boot/scala-2.7.5/lib/scala-library.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_managed/test/servlet-api-3.0.pre1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
