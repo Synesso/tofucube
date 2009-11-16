@@ -10,10 +10,10 @@ class Pages extends Step {
   get("/") { Left("/login") }
   get("/login") { new UserLogin().render }
   post("/logging_in") { new UserLoggingIn(session, params("username"), params("password")).render }
-  get("/portfolio") { new PortfolioList(session).render }
-  get("/portfolio/:name") { new PortfolioDetail(session, params(":name")).render }
-  get("/create/portfolio") { new PortfolioCreate(session).render }
-  post("/creating/portfolio") { new PortfolioCreation(session, params("name")).render }
+  get("/portfolio") { (new PortfolioList(session) with NeedsUser).render }
+  get("/portfolio/:name") { (new PortfolioDetail(session, params(":name")) with NeedsUser).render }
+  get("/create/portfolio") { (new PortfolioCreate(session) with NeedsUser).render }
+  post("/creating/portfolio") { (new PortfolioCreation(session, params("name")) with NeedsUser).render }
   get("/register") { new UserRegister().render }
   post("/creating/user") { new UserCreation(session, params("username"), params("password")).render }
 }

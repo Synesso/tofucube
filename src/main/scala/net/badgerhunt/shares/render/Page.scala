@@ -6,7 +6,7 @@ object Page {
   val RETURN_TO_PAGE_SESSION_KEY = "return_to_page"
 }
 
-trait Page {
+abstract class Page {
   val url: String
-  def render: Either[String, NodeSeq]
+  def render(): Either[String, NodeSeq]
 }

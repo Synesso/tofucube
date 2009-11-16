@@ -4,6 +4,8 @@ import scweery.Scweery._
 import db.DB
 
 object Portfolio {
+  val SESSION_KEY = "selected_portfolio"
+
   def create(user: User, name: String) = {
     use(DB.connection) {
       _.update("insert into portfolios (username, name) values ('%s', '%s')".format(user.name, name))

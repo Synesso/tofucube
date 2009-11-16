@@ -6,6 +6,7 @@ object EnhancedHttpSession {
   implicit def enhance(session: HttpSession): EnhancedHttpSession = new EnhancedHttpSession(session)
 }
 class EnhancedHttpSession(session: HttpSession) {
+
   def get[T](param: String): Option[T] = {
     val storedValue = session.getAttribute(param)
     val generic = storedValue match {
@@ -13,5 +14,10 @@ class EnhancedHttpSession(session: HttpSession) {
       case _ => Some(storedValue)
     }
     generic.asInstanceOf[Option[T]]
+  }
+
+  def has[T](param: String): Boolean = {
+    val storedValue = session.getAttribute(param)
+    if (storedValue == null) false else storedValue.isInstanceOf[T]
   }
 }

@@ -3,14 +3,17 @@ package net.badgerhunt.shares.render
 import javax.servlet.http.HttpSession
 import model.{User, Portfolios}
 import scala.{Left => Redirect, Right => Render}
-class PortfolioList(val session: HttpSession) extends Page with NeedsUser {
+import xml.NodeSeq
+
+abstract class PortfolioList(val session: HttpSession) extends Page {
+  val user: User
   val url = "/portfolio"
-  def xhtml(u: User) = Right(
+  def render(): Either[String, NodeSeq] = Right(
     <div id="portfolios">
-      <div class="heading">Portfolios for {u}</div>
+      <div class="heading">Portfolios for {user}</div>
       <div class="icon_list">
         <ul>
-          {Portfolios.belongingTo(u).map(p => <li>{p.html}</li>)}
+          {Portfolios.belongingTo(user).map(p => <li>{p.html}</li>)}
           <li><a href="/create/portfolio">Create new portfolio</a></li>
         </ul>
       </div>
