@@ -16,4 +16,5 @@ class Pages extends Step {
   post("/creating/portfolio") { (new PortfolioCreation(session, params("name")) with NeedsUser).render }
   get("/register") { new UserRegister().render }
   post("/creating/user") { new UserCreation(session, params("username"), params("password")).render }
+  get("/buy") { (new BuyStock(session) with NeedsUser with NeedsPortfolio).render }
 }

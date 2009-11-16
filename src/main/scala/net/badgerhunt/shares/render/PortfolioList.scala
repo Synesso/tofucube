@@ -5,9 +5,13 @@ import model.{User, Portfolios}
 import scala.{Left => Redirect, Right => Render}
 import xml.NodeSeq
 
+object PortfolioList {
+  val url = "/portfolio"
+}
+
 abstract class PortfolioList(val session: HttpSession) extends Page {
   val user: User
-  val url = "/portfolio"
+  val url = PortfolioList.url
   def render(): Either[String, NodeSeq] = Right(
     <div id="portfolios">
       <div class="heading">Portfolios for {user}</div>

@@ -10,12 +10,7 @@ trait NeedsPortfolio extends Page {
   val session: HttpSession
 
   abstract override def render(): Either[String, NodeSeq] =
-    if (session.has[Portfolio](Portfolio.SESSION_KEY)) super.render else loginAndReturn(url)
-
-  def loginAndReturn(url: String) = {
-    session.setAttribute(Page.RETURN_TO_PAGE_SESSION_KEY, url)
-    Left("/portfolio")
-  }
+    if (session.has[Portfolio](Portfolio.SESSION_KEY)) super.render else Left(PortfolioList.url)
 
   lazy val portfolio = session.get[Portfolio](Portfolio.SESSION_KEY).get
 }

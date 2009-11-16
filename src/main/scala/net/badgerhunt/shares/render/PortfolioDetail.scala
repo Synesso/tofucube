@@ -8,11 +8,13 @@ abstract class PortfolioDetail(val session: HttpSession, name: String) extends P
   val user: User
   val url = "/portfolio/%s".format(name)
   def render(): Either[String, NodeSeq] = {
-    Portfolio.namedForUser(user, name).map(p =>
+    Portfolio.namedForUser(user, name).map{p =>
+      session.setAttribute(Portfolio.SESSION_KEY, p)
       Right(
         <div id="portfolio">
           <div class="heading">{user.name}'s Portfolio: {p.name}</div>
+          <a href="/buy">buy</a>
         </div>)
-    ).getOrElse(Left("/portfolio"))
+    }.getOrElse(Left("/portfolio"))
   }
 }
