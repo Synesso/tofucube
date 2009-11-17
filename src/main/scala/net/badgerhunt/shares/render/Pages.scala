@@ -1,8 +1,11 @@
 package net.badgerhunt.shares.render
 
 import com.thinkminimo.step.Step
+import source.CompanySource
 
 class Pages extends Step {
+  CompanySource.update
+
   before {
     contentType = "text/html"
   }
