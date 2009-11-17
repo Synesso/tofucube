@@ -20,4 +20,5 @@ class Pages extends Step {
   get("/register") { new UserRegister().render }
   post("/creating/user") { new UserCreation(session, params("username"), params("password")).render }
   get("/buy") { (new BuyStock(session) with NeedsUser with NeedsPortfolio).render }
+  post("/buying") { (new BuyingStock(session, params("code"), params("quantity"), params("price")) with NeedsUser with NeedsPortfolio).render }
 }
