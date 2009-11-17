@@ -4,7 +4,7 @@ import com.thinkminimo.step.Step
 import source.CompanySource
 
 class Pages extends Step {
-  CompanySource.update
+//  CompanySource.update // todo - do once only
 
   before {
     contentType = "text/html"

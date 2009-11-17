@@ -10,6 +10,7 @@ abstract class BuyStock(val session: HttpSession) extends Page {
   val portfolio: Portfolio
   val url = "/buy"
   // todo - autocomplete http://digitarald.de/project/autocompleter/1-1/showcase/request-json/
+  // todo - calendar picker
   def render: Either[String, NodeSeq] = {
     Right(
       <div>

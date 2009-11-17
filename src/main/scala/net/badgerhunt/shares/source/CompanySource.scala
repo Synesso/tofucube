@@ -12,9 +12,9 @@ object CompanySource {
     val withValidCategory = companyData.filter(!_._3.equals("GICS Sector Code Not Applicable")).filter(!_._3.equals("Classification Pending"))
     val capitalised = withValidCategory.map(t => (t._1.split(" ").map(w => if (w.equals(t._2)) w else w.toLowerCase).map(w => if (w.equals("and") || w.equals("of")) w else w.capitalize).mkString(" "), t._2, t._3))
     use(DB.connection) { c =>
-      c.update("truncate table companies")
+//      c.update("truncate table companies")
       capitalised.foreach{company =>
-        val sql = "insert into companies (code, version, name, classification) values ('%s', 1, E'%s', E'%s')".format(company._2, escape(company._1), escape(company._3))
+        val sql = "insert into companies (code, name, classification) values ('%s', E'%s', E'%s')".format(company._2, escape(company._1), escape(company._3))
         println(sql)
         c.update(sql)
       }

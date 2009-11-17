@@ -1,11 +1,16 @@
 package net.badgerhunt.shares.render
 
 
+import db.DB
 import javax.servlet.http.HttpSession
+import model.{User, Portfolio}
 import xml.NodeSeq
+import scweery.Scweery._
 
-class BuyingStock(val session: HttpSession, code: String, quantityS: String, priceS: String) extends Page {
+abstract class BuyingStock(val session: HttpSession, code: String, quantityS: String, priceS: String) extends Page {
 
+  val user: User
+  val portfolio: Portfolio
   val url = "/buying"
 
   def asDouble(s: String, valid: Double => Boolean): Option[Double] = try {
@@ -26,6 +31,15 @@ class BuyingStock(val session: HttpSession, code: String, quantityS: String, pri
   val quantity = asInt(quantityS, _ > 0)
 
   def render: Either[String, NodeSeq] = {
-    Right(<h1>Buying {quantity} of {code} at {price}</h1>)
+    if (price.isDefined && quantity.isDefined) {
+      use(DB.connection) { c=>
+        val sql = "insert into buys (portfolio_id, company, quantity, price) values (%s, '%s', %s, %s)".format(portfolio.id, code, quantity.get, price.get)
+        println(sql)
+        c.update(sql)
+      }
+      Right(<h1>Bought {quantity} of {code} at {price}</h1>)
+    } else {
+      Left("/buy")
+    }
   }
 }
