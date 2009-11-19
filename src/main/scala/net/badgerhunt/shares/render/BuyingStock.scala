@@ -2,12 +2,13 @@ package net.badgerhunt.shares.render
 
 
 import db.DB
+import java.util.Date
 import javax.servlet.http.HttpSession
 import model.{User, Portfolio}
 import xml.NodeSeq
 import scweery.Scweery._
 
-abstract class BuyingStock(val session: HttpSession, code: String, quantityS: String, priceS: String) extends Page {
+abstract class BuyingStock(val session: HttpSession, code: String, quantityS: String, priceS: String, brokerageS: String) extends Page {
 
   val user: User
   val portfolio: Portfolio
@@ -29,11 +30,13 @@ abstract class BuyingStock(val session: HttpSession, code: String, quantityS: St
 
   val price = asDouble(priceS, _ > 0.0)
   val quantity = asInt(quantityS, _ > 0)
+  val brokerage = asDouble(brokerageS, _ >= 0.0)
 
   def render: Either[String, NodeSeq] = {
     if (price.isDefined && quantity.isDefined) {
       use(DB.connection) { c=>
-        val sql = "insert into buys (portfolio_id, company, quantity, price) values (%s, '%s', %s, %s)".format(portfolio.id, code, quantity.get, price.get)
+        val sql = "insert into buys (portfolio_id, company, day, quantity, price, brokerage) values (%s, '%s', '%s', %s, %s, %s)".format(
+          portfolio.id, code, DB.dateFormat.format(new Date), quantity.get, price.get, brokerage.get)
         println(sql)
         c.update(sql)
       }

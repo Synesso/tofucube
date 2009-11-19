@@ -21,6 +21,7 @@ abstract class BuyStock(val session: HttpSession) extends Page {
           </select>
           Quantity: <input type="text" name="quantity" value="1"/>
           Price: <input type="text" name="price" value="1.00"/>
+          Brokerage: <input type="text" name="brokerage" value="0.00"/>
           <input type="submit" value="Buy"/>
         </form>
       </div>)
